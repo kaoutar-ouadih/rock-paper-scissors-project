@@ -10,15 +10,86 @@
     // make a list of the choices
     const choices =["rock", "paper", "scissors"];
     
-
     // pass it to the function
     function getComputerChoice(choices){
-        console.log(choices);
         // the function must choose a random string from the list and return it
         randomIndex = Math.floor(Math.random() * choices.length);
+        // console.log(choices[randomIndex]);
         return choices[randomIndex];
     }
-    console.log(getComputerChoice(choices));
+    // console.log(getComputerChoice(choices));
+    //second function
+    // singleRound take 2 parameters the computer choice and the user choice and display the result
+    function singleRound(playerSelection, computerSelection){
+        // Rock beats scissors 
+        if((playerSelection.toLowerCase() === "rock") & (computerSelection == "scissors")){
+            console.log("You Win! Rock beats Scissors");
+            return 1;
+        }
+        else if ((playerSelection.toLowerCase() === "scissors") & (computerSelection == "rock")){
+            console.log("You Lose! Rock beats Scissors");
+            return -1;
+        }
+        // scissors beat paper,
+        else if((playerSelection.toLowerCase() === "scissors") & (computerSelection == "paper")){
+            console.log("You Win! Scissors beat Paper");
+            return 1;
+        }
+        else if ((playerSelection.toLowerCase() === "paper") & (computerSelection == "scissors")){
+            console.log("You Lose! Scissors beat Paper");
+            return -1;
+         }
+        // paper beats rock.
+        else if((playerSelection.toLowerCase() === "paper") & (computerSelection == "rock")){
+            console.log("You Win! Paper beats Rock");
+            return 1;
+        }
+        else if((playerSelection.toLowerCase() === "rock") & (computerSelection == "paper")){
+            console.log("You Lose! Paper beats Rock");
+            return -1;
+        }
+        else if (playerSelection.toLowerCase() === computerSelection){
+            console.log("It's a tie !");
+            return 0;
+        }
+    }
+    // console.log(singleRound("rock",getComputerChoice(choices) ));
+    // the game function witch will call the singleRound 5 times and display the winner 
+    // in each round 
+    let scoreWins = 0;
+    let scoreFails = 0;
+    let scoreTies = 0;
+    function game(){
+        for(let i = 1; i<= 5; i++){
+            let playerSelection = prompt("Please choose one: rock, paper or scissors");
+            result = singleRound(playerSelection,getComputerChoice(choices) );
+            //track the wins score
+            if(result == 1)
+            {
+                scoreWins++;
+            }
+            //track the fails score
+            if(result == -1){
+                scoreFails++;
+            }
+            //track the ties score
+            if(result == 0){
+                scoreTies++;
+            }
+        }console.log(`scoreWins: ${scoreWins}, scoreFails ${scoreFails}, scoreTies ${scoreTies}`);
+        // the winner based on the final score
+        if(scoreWins > scoreFails)
+        {
+            console.log("You win!");
+        }
+        else if (scoreWins == scoreFails){
+            console.log("It's a tie!");
+        }else{
+            console.log("you lose!");
+        }
+    }
+    //start the game
+    game();
     </script>
 </body>
 </html>
