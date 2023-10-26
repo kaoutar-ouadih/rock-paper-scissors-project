@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script> 
+    // make a list of the choices
+    const choices =["rock", "paper", "scissors"];
+    
+
+    // pass it to the function
+    function getComputerChoice(choices){
+        console.log(choices);
+        // the function must choose a random string from the list and return it
+        randomIndex = Math.floor(Math.random() * choices.length);
+        return choices[randomIndex];
+    }
+    console.log(getComputerChoice(choices));
+    </script>
+</body>
+</html>
