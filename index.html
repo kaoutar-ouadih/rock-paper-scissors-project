@@ -6,7 +6,16 @@
     <title>Document</title>
 </head>
 <body>
+    <button id="1" value="rock">Rock</button>
+    <button id="2" value="paper">Paper</button>
+    <button id="3" value="scissors">Scissors</button>
+    <div id="container"> </div>
+
+
     <script> 
+    const div = document.querySelector('#container');
+    const h3 = document.createElement('h3');
+    div.appendChild(h3);
     // make a list of the choices
     const choices =["rock", "paper", "scissors"];
     
@@ -14,55 +23,69 @@
     function getComputerChoice(choices){
         // the function must choose a random string from the list and return it
         randomIndex = Math.floor(Math.random() * choices.length);
-        // console.log(choices[randomIndex]);
         return choices[randomIndex];
     }
-    // console.log(getComputerChoice(choices));
-    //second function
     // singleRound take 2 parameters the computer choice and the user choice and display the result
     function singleRound(playerSelection, computerSelection){
+        // let playerSelection = 
         // Rock beats scissors 
         if((playerSelection.toLowerCase() === "rock") & (computerSelection == "scissors")){
-            console.log("You Win! Rock beats Scissors");
+            h3.textContent = "You Win! Rock beats Scissors";
             return 1;
         }
         else if ((playerSelection.toLowerCase() === "scissors") & (computerSelection == "rock")){
-            console.log("You Lose! Rock beats Scissors");
+            h3.textContent = "You Lose! Rock beats Scissors";
             return -1;
         }
         // scissors beat paper,
         else if((playerSelection.toLowerCase() === "scissors") & (computerSelection == "paper")){
-            console.log("You Win! Scissors beat Paper");
+            h3.textContent = "You Win! Scissors beat Paper";
             return 1;
         }
         else if ((playerSelection.toLowerCase() === "paper") & (computerSelection == "scissors")){
-            console.log("You Lose! Scissors beat Paper");
+            h3.textContent = "You Lose! Scissors beat Paper";
             return -1;
          }
         // paper beats rock.
         else if((playerSelection.toLowerCase() === "paper") & (computerSelection == "rock")){
-            console.log("You Win! Paper beats Rock");
+            h3.textContent = "You Win! Paper beats Rock";
             return 1;
         }
         else if((playerSelection.toLowerCase() === "rock") & (computerSelection == "paper")){
-            console.log("You Lose! Paper beats Rock");
+            h3.textContent = "You Lose! Paper beats Rock";
             return -1;
         }
         else if (playerSelection.toLowerCase() === computerSelection){
-            console.log("It's a tie !");
+            h3.textContent = "It's a tie !";
             return 0;
         }
     }
-    // console.log(singleRound("rock",getComputerChoice(choices) ));
-    // the game function witch will call the singleRound 5 times and display the winner 
-    // in each round 
+    const h1 = document.createElement('h1');
+    const h2 = document.createElement('h2');
+    div.appendChild(h1);
+    div.appendChild(h2);
+    //function to keep track of scores until a player reach 5 points and display the winner!
     let scoreWins = 0;
     let scoreFails = 0;
     let scoreTies = 0;
-    function game(){
-        for(let i = 1; i<= 5; i++){
-            let playerSelection = prompt("Please choose one: rock, paper or scissors");
+    function game(playerSelectionInput){
+            let playerSelection = playerSelectionInput;
             result = singleRound(playerSelection,getComputerChoice(choices) );
+            if(scoreWins == 5 || scoreFails == 5){
+                if(scoreWins == 5){
+                    h1.textContent = "Final result: You win!";
+                    scoreWins = 0;
+                    scoreFails = 0;
+                    scoreTies = 0;
+                }
+                else if(scoreFails == 5){
+                    h1.textContent = "Final result: you lose!";
+                    scoreWins = 0;
+                    scoreFails = 0;
+                    scoreTies = 0;
+                }
+                return 0;
+            }
             //track the wins score
             if(result == 1)
             {
@@ -76,20 +99,20 @@
             if(result == 0){
                 scoreTies++;
             }
-        }console.log(`scoreWins: ${scoreWins}, scoreFails ${scoreFails}, scoreTies ${scoreTies}`);
-        // the winner based on the final score
-        if(scoreWins > scoreFails)
-        {
-            console.log("You win!");
-        }
-        else if (scoreWins == scoreFails){
-            console.log("It's a tie!");
-        }else{
-            console.log("you lose!");
-        }
+        // }
+        h2.textContent = `scoreWins: ${scoreWins}, scoreFails ${scoreFails}, scoreTies ${scoreTies}`;
     }
-    //start the game
-    game();
+
+    const btns = document.querySelectorAll('button');
+    btns.forEach((item) => {
+        
+        item.addEventListener('click', () => {
+                //start the game
+                game(item.value);
+
+        });
+    }
+    );
     </script>
 </body>
 </html>
